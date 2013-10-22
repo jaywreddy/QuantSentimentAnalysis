@@ -43,7 +43,7 @@ def format(article):
 			content= article['content']
 		else:
 			return
-		last_updated= article['last_updated']
+		last_updated= article['created']
 		terms= generate_set(content)
 		title="No title"
 		try:
@@ -56,10 +56,11 @@ def format(article):
 			term_freq[term]=content_strip.count(term)
 
 		score = get_sentiment(content_strip)
-		return {'terms':term_freq,'title':title,'content':content_strip, 'last_update':last_updated, 'sentiment': get_sentiment(score)}
+		print("Parsed: "+ title)
+		return {'terms':term_freq,'title':title, 'last_update':last_updated, 'sentiment': get_sentiment(score)}
 
 def get_sentiment(text):
-	score = TextBlob(text).sentiment[0] #ignore subjectivity
+	score = TextBlob(str(text)).sentiment[0] #ignore subjectivity
 	return score
 
 

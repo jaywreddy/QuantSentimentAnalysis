@@ -54,10 +54,12 @@ def get_articles_back(source, start_time, end_time):
 	articles = []
         last_time = start_time
         while last_time > end_time:
-		query = source+ "&last_story_published="+str(start_time)+"&last_story_updated="+str(last_time)
+		query = source+ "&last_story_published="+str(last_time)+"&last_story_updated="+str(last_time)
 		response=urllib2.urlopen(query)
                 message = json.load(response)
                 art= message['responseData']['feed']['entries']
+		if art[1]['last_updated'] > last_time:
+			return articles #we are looping
                 articles += art
                 last_time = articles[-1]['last_updated']
 		print(len(articles))

@@ -14,6 +14,6 @@ for fi in listing:
 
 	f.close()
 
-	f2 = open('cleaned/'+f.name, 'w')
-	json.dump(f2, processed)
+	f2 = open('cleaned/'+ os.path.basename(f.name), 'w')
+	json.dump(processed, f2)
 
